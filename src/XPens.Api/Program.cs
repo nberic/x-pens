@@ -1,3 +1,5 @@
+using XPens.Api.Endpoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
@@ -11,10 +13,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/hello-world", () =>
-{
-    return "Hello World!";
-})
-.WithName("HelloWorld");
+// Register only the needed CRUD endpoints
+ExpensesEndpoints.MapExpensesEndpoints(app);
+CategoriesEndpoints.MapCategoriesEndpoints(app);
 
 app.Run();
