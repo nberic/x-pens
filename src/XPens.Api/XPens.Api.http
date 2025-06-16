@@ -1,0 +1,59 @@
+@host = https://localhost:7221
+
+### Get all expenses
+GET {{host}}/api/expenses
+
+### Get expense by ID
+GET {{host}}/api/expenses/1
+
+### Create a new expense
+POST {{host}}/api/expenses
+Content-Type: application/json
+
+{
+  "amount": 42.00,
+  "date": "2025-06-14T00:00:00Z",
+  "categoryId": 2,
+  "note": "Groceries"
+}
+
+### Update an existing expense
+PUT {{host}}/api/expenses/1
+Content-Type: application/json
+
+{
+  "amount": 50.00,
+  "date": "2025-06-15T00:00:00Z",
+  "categoryId": 2,
+  "note": "Updated groceries"
+}
+
+### Delete an expense
+DELETE {{host}}/api/expenses/1
+
+### Get all categories
+GET {{host}}/api/categories
+
+### Get category by ID
+GET {{host}}/api/categories/1
+
+### Create a new category
+POST {{host}}/api/categories
+Content-Type: application/json
+
+{
+  "name": "Food",
+  "color": "#FF0000"
+}
+
+### Update an existing category
+PUT {{host}}/api/categories/1
+Content-Type: application/json
+
+{
+  "name": "Groceries",
+  "color": "#00FF00"
+}
+
+### Delete a category
+DELETE {{host}}/api/categories/1
