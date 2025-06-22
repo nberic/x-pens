@@ -11,7 +11,15 @@ export default function ExpenseForm({ onSaved, editing }: { onSaved: () => void;
 
   // Update form when editing changes
   useEffect(() => {
-    setForm(editing || initialForm);
+    // If editing, ensure date is in yyyy-MM-dd format for input
+    if (editing && editing.date) {
+      setForm({
+        ...editing,
+        date: editing.date.slice(0, 10),
+      });
+    } else {
+      setForm(initialForm);
+    }
   }, [editing]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
