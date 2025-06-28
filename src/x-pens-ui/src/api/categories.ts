@@ -24,11 +24,15 @@ export const updateCategory = async (id: number, category: any) => {
     body: JSON.stringify(category),
   });
   if (!res.ok) throw new Error('Failed to update category');
+  // 204 No Content: don't parse JSON
+  if (res.status === 204) return true;
   return res.json();
 };
 
 export const deleteCategory = async (id: number) => {
   const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
   if (!res.ok) throw new Error('Failed to delete category');
+  // 204 No Content: don't parse JSON
+  if (res.status === 204) return true;
   return res.ok;
 };
