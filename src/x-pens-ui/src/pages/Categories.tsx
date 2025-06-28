@@ -12,6 +12,7 @@ export default function Categories() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const loadCategories = async () => {
     setLoading(true);
@@ -33,21 +34,34 @@ export default function Categories() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const validate = () => {
+    if (!form.name || form.name.trim().length < 2) return 'Category name must be at least 2 characters.';
+    return null;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
+    setSuccess(null);
+    const validationError = validate();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+    setLoading(true);
     try {
       if (editingId) {
         await updateCategory(editingId, form);
+        setSuccess('Category updated successfully!');
       } else {
         await createCategory(form);
+        setSuccess('Category added successfully!');
       }
       setForm({ name: '' });
       setEditingId(null);
       loadCategories();
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'An error occurred.');
     }
     setLoading(false);
   };
@@ -60,11 +74,14 @@ export default function Categories() {
   const handleDelete = async (id: number) => {
     if (!window.confirm('Delete this category?')) return;
     setLoading(true);
+    setError(null);
+    setSuccess(null);
     try {
       await deleteCategory(id);
+      setSuccess('Category deleted successfully!');
       loadCategories();
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'An error occurred.');
     }
     setLoading(false);
   };
@@ -93,13 +110,14 @@ export default function Categories() {
           <button
             type="button"
             className="ml-2 text-gray-600 underline"
-            onClick={() => { setForm({ name: '' }); setEditingId(null); }}
+            onClick={() => { setForm({ name: '' }); setEditingId(null); setError(null); setSuccess(null); }}
           >
             Cancel
           </button>
         )}
       </form>
-      {error && <div className="text-red-500 mb-2">{error}</div>}
+      {error && <div className="text-red-500 bg-red-100 border border-red-300 rounded px-2 py-1 mb-2">{error}</div>}
+      {success && <div className="text-green-600 bg-green-100 border border-green-300 rounded px-2 py-1 mb-2">{success}</div>}
       {loading ? (
         <div>Loading...</div>
       ) : (
