@@ -9,7 +9,7 @@ function App() {
   return (
     <Router future={{ v7_startTransition: true }}>
       <Navbar />
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 max-w-3xl">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/expenses" element={<Expenses />} />

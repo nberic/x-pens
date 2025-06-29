@@ -44,11 +44,30 @@ export default function ExpenseTable({ onEdit, filterCategoryId, filterDateFrom,
     loadExpenses();
   };
 
-  if (loading) return <div>Loading expenses...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (loading) return (
+    <div className="flex justify-center items-center py-8">
+      <svg className="animate-spin h-6 w-6 text-blue-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+      </svg>
+      <span>Loading expenses...</span>
+    </div>
+  );
+  if (error) return <div className="text-red-500 text-center py-4">{error}</div>;
 
   // Summary for filtered
   const total = filtered.reduce((sum, e) => sum + Number(e.amount), 0);
+
+  if (!filtered.length) {
+    return (
+      <div className="flex flex-col items-center py-12">
+        <svg className="h-12 w-12 text-gray-300 mb-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2a4 4 0 018 0v2m-4-4v4m0 0v4m0-4H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-7z" />
+        </svg>
+        <div className="text-gray-500">No expenses found for the selected criteria.</div>
+      </div>
+    );
+  }
 
   return (
     <div>
