@@ -1,3 +1,25 @@
+# Progress & Next Steps (Expense Tracker UI)
+
+## Recent Changes (July 2025)
+- Fixed SVG rendering issues in the Navbar hamburger menu (diagnosed and resolved CSS/SVG conflicts).
+- Updated Navbar to use robust SVG icons for hamburger (three bars) and close (X) menu states.
+- Debugged and confirmed SVGs render globally and locally in all components.
+- Removed experimental `future` prop from React Router `<Router>` to resolve TypeScript error.
+- Improved mobile/desktop menu toggle and ensured accessibility and responsiveness.
+- Refactored and cleaned up code for maintainability.
+
+
+## Where to Continue Next Time
+- Remove the SVG debug component from `App.tsx` (no longer needed).
+- Widen the main app view for desktop (increase max width of main container/pages).
+- Improve spacing, font sizes, and layout in Expense Table and Expense Form using Tailwind.
+- Add loading spinners, empty states, and better error messages to key components.
+- Continue refining UI/UX and consider using shadcn/ui components for a more polished look.
+- Review and clean up any remaining debug/test code or unused styles.
+- Consider adding more tests and accessibility improvements.
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
